@@ -36,6 +36,7 @@ app.use(
 );
 
 app.use(express.static("styles"));
+app.use(express.static("favicon"));
 
 app.use(methodOverride("_method"));
 
