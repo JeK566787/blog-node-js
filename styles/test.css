@@ -1,0 +1,15 @@
+body {
+  position: absolute;
+  display: flex;
+  align-items: baseline;
+  text-shadow: none;
+}
+ul {
+  text-decoration: none;
+}
+li {
+  cursor: pointer;
+}
+a {
+  color: aqua;
+}
