@@ -25,7 +25,6 @@ const editPost = (req, res) => {
 };
 
 const getPosts = (req, res) => {
-  const title = "Posts";
   Post.find()
     .sort({ createdAt: -1 })
     .then((posts) => res.status(200).json(posts))

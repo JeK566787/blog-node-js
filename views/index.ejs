@@ -5,5 +5,12 @@
     <%- include('./partials/nav.ejs') %>
     <h1>Personal Blog</h1>
     <p>Build with Node.js Express, EJS, MongoDB</p>
+    <script>
+      const params = new URLSearchParams(window.location.search);
+      const message = params.get("message");
+      if (message) {
+        alert(decodeURIComponent(message));
+      }
+    </script>
   </body>
 </html>

@@ -9,7 +9,11 @@ const methodOverride = require("method-override");
 const postRoutes = require("./routes/post-routes");
 const postApiRoutes = require("./routes/api-post-routes");
 const contactRoutes = require("./routes/contact-routes");
+const authRoutes = require("./routes/auth-routes");
+const cookieParser = require("cookie-parser");
+
 const createPath = require("./helpers/create-path");
+const authMiddleware = require("./middleware/authMiddleware");
 
 const app = express();
 
@@ -39,14 +43,31 @@ app.use(express.static("styles"));
 
 app.use(methodOverride("_method"));
 
-app.get("/", (req, res) => {
+app.use(cookieParser());
+
+app.get("/", authMiddleware, (req, res) => {
   const title = "Home";
   res.render(createPath("index"), { title });
 });
+app.get("/enter", (req, res) => {
+  const title = "Enter";
+  res.clearCookie("token");
+  res.clearCookie("refreshToken");
+  res.render(createPath("enter"), { title });
+});
+
+app.use(express.json());
 
 app.use(postRoutes);
 app.use(contactRoutes);
+app.use(authRoutes);
 app.use(postApiRoutes);
+
+// app.get("/logout", authMiddleware, (req, res) => {
+//   res.clearCookie("token");
+//   res.clearCookie("refreshToken");
+//   return res.redirect("/");
+// });
 
 app.use((req, res) => {
   const title = "Error Page";
